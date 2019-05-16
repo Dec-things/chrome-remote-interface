@@ -10,6 +10,8 @@ This module is one of the many [third-party protocol clients][3rd-party].
 
 [3rd-party]: https://developer.chrome.com/devtools/docs/debugging-clients#chrome-remote-interface
 
+This fork allows the user to use any network transport, instead of only using the standard WebSocket.
+
 Sample API usage
 ----------------
 
@@ -23,6 +25,67 @@ async function example() {
     try {
         // connect to endpoint
         client = await CDP();
+        // extract domains
+        const {Network, Page} = client;
+        // setup handlers
+        Network.requestWillBeSent((params) => {
+            console.log(params.request.url);
+        });
+        // enable events then start!
+        await Network.enable();
+        await Page.enable();
+        await Page.navigate({url: 'https://github.com'});
+        await Page.loadEventFired();
+    } catch (err) {
+        console.error(err);
+    } finally {
+        if (client) {
+            await client.close();
+        }
+    }
+}
+
+example();
+```
+
+The following snippet connects to a remote process using a custom transport.
+
+```js
+const EventEmitter = require('events').EventEmitter
+const CDP = require('chrome-remote-interface');
+
+/**
+ * Custom transport class.
+ * 
+ * Events:
+ * 
+ * - emit('message', data), data is string
+ * - emit('error', e)
+ * - emit('close')
+ * 
+ */
+class CustomTransport extends EventEmitter {
+    /**
+     * Send data
+     */
+    send(message) {
+        
+    }
+    /**
+     * Fetch and return protocol. This is usually done by calling HTTP GET <address>:<port>/json/protocol. 
+     * 
+     * Return the string data.
+     */
+    getProtocol() {
+        
+    }
+}
+
+async function example() {
+    let client;
+    try {
+        // connect to endpoint
+        client = await CDP({ transport:  });
         // extract domains
         const {Network, Page} = client;
         // setup handlers
