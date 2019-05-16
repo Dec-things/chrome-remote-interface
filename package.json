@@ -1,5 +1,5 @@
 {
-    "name": "chrome-remote-interface",
+    "name": "@diginet/chrome-remote-interface",
     "author": "Andrea Cardaci <cyrus.and@gmail.com>",
     "license": "MIT",
     "contributors": [
