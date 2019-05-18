@@ -18,7 +18,7 @@ Sample API usage
 The following snippet loads `https://github.com` and dumps every request made:
 
 ```js
-const CDP = require('chrome-remote-interface');
+const CDP = require('chrome-remote-interface').CDP;
 
 async function example() {
     let client;
@@ -52,7 +52,7 @@ The following snippet connects to a remote process using a custom transport.
 
 ```js
 const EventEmitter = require('events').EventEmitter
-const CDP = require('chrome-remote-interface');
+const CDP = require('chrome-remote-interface').CDP;
 
 /**
  * Custom transport class.
@@ -68,8 +68,10 @@ class CustomTransport extends EventEmitter {
     /**
      * Send data
      */
-    send(message) {
-        
+    send(message, callback) {
+        callback()
+        // Error:
+        callback(err)
     }
     /**
      * Fetch and return protocol. This is usually done by calling HTTP GET <address>:<port>/json/protocol. 
@@ -77,7 +79,7 @@ class CustomTransport extends EventEmitter {
      * Return the string data.
      */
     getProtocol() {
-        
+        return 'the protocol'
     }
 }
 

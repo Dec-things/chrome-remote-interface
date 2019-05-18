@@ -33,15 +33,12 @@
     "files": [
         "lib",
         "bin",
-        "index.js",
-        "chrome-remote-interface.js",
-        "webpack.config.js"
+        "index.js"
     ],
     "bin": {
         "chrome-remote-interface": "./bin/client.js"
     },
     "main": "index.js",
-    "browser": "chrome-remote-interface.js",
     "devDependencies": {
         "babel-core": "^6.26.3",
         "babel-loader": "6.x.x",
@@ -54,8 +51,6 @@
         "lodash": ">=4.17.11"
     },
     "scripts": {
-        "test": "./scripts/run-tests.sh",
-        "webpack": "webpack",
-        "prepare": "webpack"
+        "test": "./scripts/run-tests.sh"
     }
 }

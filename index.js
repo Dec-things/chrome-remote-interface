@@ -26,7 +26,7 @@ function CDP(options, callback) {
     }
 }
 
-module.exports = CDP;
+module.exports = { CDP }
 module.exports.Protocol = devtools.Protocol;
 module.exports.List = devtools.List;
 module.exports.New = devtools.New;
